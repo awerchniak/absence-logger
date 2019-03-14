@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>
+        Absence Logger
+    </title>
+</head>
+<body>
+    <h1> Absence Logger Home </h1>
+    <p>
+        You have reached the home page for the Absence Logger site. From here, you may navigate to
+        one of two apps: (1) the Hall Pass app, through which students sign in and out of class, and
+        which logs their absences, or (2) the Teacher View app, which allows teachers to visualize
+        data about their students' absences.
+    </p>
+    <a href="{% url 'hall_pass:index' %}">Hall Pass</a>
+    <br>
+    <a href="{% url 'teacher_view:index' %}">Teacher View (coming soon)</a>
+</body>
+</html>

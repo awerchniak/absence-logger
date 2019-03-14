@@ -1,0 +1,11 @@
+<h1> Hall Pass </h1>
+{% if courses %}
+<h2> Select a course from the list </h2>
+<ul>
+{% for course in courses %}
+    <li><a href="{% url 'hall_pass:sign_out_page' course.id %}">{{ course }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<h2>No courses are available.</h2>
+{% endif %}

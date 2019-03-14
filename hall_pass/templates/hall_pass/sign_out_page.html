@@ -1,0 +1,48 @@
+<h1> Sign out page for {{ course }} </h1>
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% elif course.students.all %}
+<h2> Select your name from the list </h2>
+<form action="{% url 'hall_pass:sign_out_action' course.id %}" method="post">
+{% csrf_token %}
+    Name:
+    <select name="student" id="StudentSelect">
+        <!-- This is a hack! Putting the current absence as the ID. There has to be a better way-->
+        {% for student in course.students.all %}
+        <option value="{{ student.id }}" id="{{ student.current_absence }}">{{ student }}</option>
+        {% endfor %}
+    </select>
+     <br>
+    Reason:
+    <input type="text" name="reason", id="StudentAbsenceReason">
+    <br>
+    <input type="submit" value="Sign Out" id="StudentSubmitButton">
+{% endif %}
+</form>
+
+<script type="text/javascript">
+const setSignInSignOutButton = (firstCall = false) => {
+	let option = select.options[select.selectedIndex];
+	if (firstCall) {
+		option = select.options[0];
+	}
+
+    let button = document.getElementById("StudentSubmitButton");
+    let text_field = document.getElementById("StudentAbsenceReason");
+    if (option.id == "None") {
+        button.value = "Sign Out";
+        text_field.style.display = "block";
+    }
+    else {
+        button.value = "Sign in";
+        text_field.style.display = "none";
+    }
+}
+
+var select = document.getElementById("StudentSelect");
+setSignInSignOutButton(true);
+select.addEventListener("change", function() {
+    setSignInSignOutButton();
+});
+</script>
